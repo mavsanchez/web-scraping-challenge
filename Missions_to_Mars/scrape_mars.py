@@ -8,7 +8,6 @@ import os
 
 
 def init_browser():
-    # @NOTE: Replace the path with your actual path to the chromedriver
     currentDirectory = os.path.dirname(__file__)
     executable_path = {"executable_path": f"{currentDirectory}\chromedriver.exe"}
     return Browser("chrome", **executable_path, headless=True)
