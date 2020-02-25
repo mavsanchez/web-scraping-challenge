@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 import pymongo
-from scrape_mars import *
+from scrape_mars import scrape_news, scrape_facts, scrape_featured_images, scrape_hemispheres_images, scrape_weather
 
 app = Flask(__name__)
 
@@ -22,7 +22,6 @@ def scrape():
     db.mars_featured_images.insert_many(scrape_featured_images())
     db.scrape_hemispheres_images.insert_many(scrape_hemispheres_images())
     db.mars_weather.insert_many(scrape_weather())
-    # List of dictionary object
     result_dict['facts'] = list(db.mars_fact.find({}, {"_id": 0}))
     result_dict['hemispheres'] = list(db.scrape_hemispheres_images.find({}, {"_id": 0}))
     result_dict['news'] = list(db.news_collection.find({}, {"_id": 0}).limit(2))
@@ -32,10 +31,7 @@ def scrape():
 
 @app.route("/")
 def index():
-    # teams = list(db.team.find())  # List of dictionary objects
-    # return render_template("index.html", teams=teams)
     return render_template("index.html", result_dict=None)
-
 
 if __name__ == "__main__":
     app.run(debug=True)

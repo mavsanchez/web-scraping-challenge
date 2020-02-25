@@ -4,11 +4,13 @@ import requests
 import pandas as pd
 import pymongo
 import time
+import os
 
 
 def init_browser():
     # @NOTE: Replace the path with your actual path to the chromedriver
-    executable_path = {"executable_path": "C:\\Users\\maver\\Desktop\\Bootcamp\\web-scraping-challenge\\Missions_to_Mars\\chromedriver.exe"}
+    currentDirectory = os.path.dirname(__file__)
+    executable_path = {"executable_path": f"{currentDirectory}\chromedriver.exe"}
     return Browser("chrome", **executable_path, headless=True)
 
 

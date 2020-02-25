@@ -10,48 +10,71 @@
 </head>
 
 <body>
-  <div class="container text-center">
-    <h1 class="jumbotron">Mission to Mars
-      <a class="btn btn-primary" href="/scrape" role="button">Scrape New Data</a>
+  <div class="container">
+    <h1 class="jumbotron text-center">Mission to Mars
+      <br /><a class="btn btn-primary" href="/scrape" role="button">Scrape New Data</a>
     </h1>
-    <div>
       
       <!-- @TODO: write a for loop that lists out your data and accesses the values using dot notation. -->
-      {% if result_dict %}
-      <h1>{{ result_dict['news'][0]['news_title'] }}</h1>
-      <p>{{ result_dict['news'][0]['news_p'] }}</p>
-
-      <h1>Current Weather on Mars</h1>
-      <p>{{ result_dict['weather'][0]['weather'] }}</p>
-
-      <h1>Featured Mars Immage</h1>
-      <img src="{{ result_dict['featured'][0]['img_url']}}" width=200 height=200/>
-        <table style='border: 1px solid black;'>
+{% if result_dict %}
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">{{ result_dict['news'][0]['news_title'] }}</h3>
+            <p class="card-text">{{ result_dict['news'][0]['news_p'] }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <br />
+    </div>
+    <div class="row">
+      <div class="col-7">
+        <h3>Featured Mars Image</h3>
+        <div class="text-center"><img src="{{ result_dict['featured'][0]['img_url']}}" width=600 height=600 class="rounded" /></div>
+      </div>
+      <div class="col-5">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">Current Weather on Mars</h3>
+            <p class="card-text">{{ result_dict['weather'][0]['weather'] }}</p>
+          </div>
+        </div>
+        <br />
+        <table class="table table-striped">
           <tr>
-            <th>Description</th>
-            <th>Value</th>
+            <th scope="col">Description</th>
+            <th scope="col">Value</th>
           </tr>
-
           {% for k, v in result_dict['facts'][0].items() %}
           <tr>
-            <td>{{ k }}</td>
+            <td scope="row">{{ k }}</td>
             <td>{{ v }}</td>
           </tr> 
           {% endfor %}
         </table>
+
+      </div>
+
+      <div class="row text-center">
+        <div class="col-12">
+        
         {% for row in result_dict['hemispheres'] %}
-          
-      <div class="card" style="width: 18rem;">
+        <div class="card m-1" style="display:inline-block;">
           <div class="card-body">
             <h5 class="card-title">{{row['title']}}</h5>
-            <p class="card-text"><img src="{{row['img_url']}}" width=200 height=200 /></p>
+            <p class="card-text"><img src="{{row['img_url']}}" width=400 height=400 /></p>
           </div>
         </div>
         {% endfor %}
-        {% endif %}
+          </div>
+        </div>
+
+{% endif %}
   
-    </div>
-  </div>
+  </div>  <!-- Main container -->
 </body>
 
 </html>
